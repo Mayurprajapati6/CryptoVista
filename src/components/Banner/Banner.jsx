@@ -1,27 +1,23 @@
-import BannerImage from "../../assets/cryptoBanner.jpg";
+import React from 'react';
+import BannerImage from '../../assets/Banner.jpg';
 
-function Banner () {
-    return (
-        <div className="w-full h-[25rem] relative">
-            <img className="h-full w-full"
-                src={BannerImage}
-            />
-
-            <div className="absolute top-20 left-0 right-0 mx-auto w-[20rem]">
-                <div className="flex flex-col gap-4">
-
-                    <div className="font-semibold text-5xl text-white">
-                        Crypto Tracker
-                    </div>
-
-                    <div className="font-semibold text-sm text-white text-center">
-                        Get all info regarding cryptocurrencies
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    );
+function Banner() {
+  return (
+    <div className='w-full h-[25rem] relative'>
+      <img 
+        src={BannerImage}
+        className='w-full h-full object-cover object-top'
+      />
+      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center flex flex-col gap-4'> 
+        <h1 className='text-4xl text-yellow-400 font-bold tracking-wide backdrop-blur-md p-2'>
+          Crypto Tracker
+        </h1>
+        <p className='text-white text-xl backdrop-blur-md p-2'>
+          Track your favorite cryptocurrencies
+        </p>
+      </div>
+    </div>
+  );
 }
 
 export default Banner;
