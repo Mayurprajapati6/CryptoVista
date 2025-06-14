@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { useQuery } from "react-query";
@@ -44,7 +43,7 @@ function CoinChart() {
       type: "line",
       toolbar: { show: false },
       zoom: { enabled: false },
-      background: '#1a103d',
+      background: 'transparent',
       animations: {
         enabled: true,
         easing: "easeinout",
@@ -69,7 +68,7 @@ function CoinChart() {
     xaxis: {
       categories: chartLabels,
       labels: {
-        style: { colors: "#FBBF24" },
+        style: { colors: "#00ff9d" },
         show: true,
         rotate: -45,
       },
@@ -77,7 +76,7 @@ function CoinChart() {
     },
     yaxis: {
       labels: {
-        style: { colors: "#FBBF24" },
+        style: { colors: "#00ff9d" },
       },
     },
     tooltip: {
@@ -88,21 +87,21 @@ function CoinChart() {
       mode: "dark",
       palette: "palette1",
     },
-    colors: ["#FBBF24"],
+    colors: ["#00ff9d"],
     grid: {
-      borderColor: "#1a103d",
+      borderColor: "rgba(0, 255, 157, 0.1)",
       strokeDashArray: 0, // Solid grid lines
       xaxis: {
         lines: {
           show: true, // Show vertical lines
-          color: "#FBBF24", // Yellow vertical lines
+          color: "rgba(0, 255, 157, 0.1)", // Yellow vertical lines
           width: 1,
         },
       },
       yaxis: {
         lines: {
           show: true, // Show horizontal lines
-          color: "#FBBF24", // Yellow horizontal lines
+          color: "rgba(0, 255, 157, 0.1)", // Yellow horizontal lines
           width: 1,
         },
       },
@@ -117,10 +116,10 @@ function CoinChart() {
   ];
 
   return (
-    <div className="bg-[#282056] p-8 rounded-lg shadow-xl border border-[#FFD700] max-w-4xl mx-auto mt-10 min-h-96 mb-10">
+    <div className="bg-base-200/30 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-primary/20 max-w-4xl mx-auto mt-10 min-h-96 mb-10">
       <div className="flex items-center mb-6">
         {/* Coin Name */}
-        <h2 className="text-yellow-500 text-3xl font-bold">
+        <h2 className="text-primary text-3xl font-cyber">
           {coinId.toUpperCase()} <br/><span className="text-2xl">Price Chart</span>
         </h2>
       </div>
@@ -129,9 +128,9 @@ function CoinChart() {
       <div className="flex gap-6 mb-8">
         {/* Days Selector */}
         <div className="w-1/3">
-          <label className="text-yellow-500 font-semibold block mb-2">Select Days</label>
+          <label className="text-primary font-cyber block mb-2">Select Days</label>
           <select
-            className="select select-bordered w-full text-yellow-400  focus:ring-2 focus:ring-yellow-500"
+            className="select select-bordered w-full bg-base-200 text-primary border-primary/20 focus:border-primary"
             value={days}
             onChange={(e) => setDays(e.target.value)}
           >
@@ -145,9 +144,9 @@ function CoinChart() {
 
         {/* Currency Selector */}
         <div className="w-1/3">
-          <label className="text-yellow-500 font-semibold block mb-2">Select Currency</label>
+          <label className="text-primary font-cyber block mb-2">Select Currency</label>
           <select
-            className="select select-bordered w-full text-yellow-400  focus:ring-2 focus:ring-yellow-500"
+            className="select select-bordered w-full bg-base-200 text-primary border-primary/20 focus:border-primary"
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
           >
@@ -161,19 +160,19 @@ function CoinChart() {
 
       {/* Loading State */}
       {isLoading && (
-        <div className="flex justify-center text-yellow-500 text-lg">
-        <span className="loading loading-ring loading-lg"></span>
+        <div className="flex justify-center">
+          <span className="loading loading-ring loading-lg text-primary"></span>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="text-red-500 text-center mt-4">Error fetching data. Please try again.</div>
+        <div className="text-error text-center mt-4 font-cyber">Error fetching data. Please try again.</div>
       )}
 
       {/* Chart */}
       {!isLoading && !error && (
-        <div className="p-4 rounded-xl">
+        <div className="p-4 rounded-xl bg-base-300/30 border border-primary/10">
           <ReactApexChart
             options={chartOptions}
             series={series}

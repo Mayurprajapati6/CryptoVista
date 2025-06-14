@@ -22,21 +22,21 @@ function EasterEgg() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#1a103d]">
-      <div className="bg-[#282056] text-yellow-500 p-8 rounded-lg shadow-lg border border-[#FFD700] max-w-lg text-center">
-        <h2 className="text-3xl font-bold mb-4">Crypto Easter Egg 🥚</h2>
-        <p className="text-lg text-gray-300 mb-6">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="bg-base-200/30 backdrop-blur-sm text-primary p-8 rounded-lg shadow-lg border border-primary/20 max-w-lg text-center">
+        <h2 className="text-3xl font-cyber mb-4">Crypto Easter Egg 🥚</h2>
+        <p className="text-lg text-base-content mb-6">
           Click the button below to discover a random fun fact about cryptocurrencies!
         </p>
         <button
           onClick={getRandomFact}
-          className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition"
+          className="bg-primary text-base-100 px-6 py-2 rounded-lg font-cyber hover:bg-primary/90 transition-all duration-200"
         >
           Reveal a Fact
         </button>
         {fact && (
-          <div className="mt-6 text-gray-200 text-lg">
-            <p className="bg-[#1a103d] p-4 rounded-lg shadow-md">{fact}</p>
+          <div className="mt-6 text-base-content text-lg">
+            <p className="bg-base-300/50 p-4 rounded-lg border border-primary/10">{fact}</p>
           </div>
         )}
       </div>

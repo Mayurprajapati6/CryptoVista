@@ -1,27 +1,27 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import CoinTableSkeleton from '../Skeleton/CoinTableSkeleton';
 
-const Home = lazy(() => import('../../Pages/Home'));
-const CoinDetailsPage = lazy(() => import('../../Pages/CoinDetailsPage'));
-const Layout = lazy(() => import('../../Pages/Layout'));
-const About = lazy(() => import('../../Pages/About'));
-const EasterEgg = lazy(() => import('../../Pages/EasterEgg'));
+import Home from '../../Pages/Home';
+import CoinDetailsPage from '../../Pages/CoinDetailsPage';
+import Layout from '../../Pages/Layout';
+import About from '../../Pages/About';
+import EasterEgg from '../../Pages/EasterEgg';
 
 
 
 function Routing() {
   return (
-    <Suspense fallback={<CoinTableSkeleton />}>
+    <div>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/coin/:coinId" element={<CoinDetailsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/easteregg" element={<EasterEgg />} />
         </Route>
       </Routes>
-    </Suspense>
+    </div>
   );
 }
 

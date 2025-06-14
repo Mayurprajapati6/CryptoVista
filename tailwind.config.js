@@ -6,24 +6,39 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'cyber': ['Orbitron', 'sans-serif'],
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
       {
-        customtheme: {
-          "primary": "#4F46E5",
-          "secondary": "#7C3AED",
-          "accent": "#F59E0B",
-          "neutral": "#1F2937",
-          "base-100": "#111827",
-          "info": "#3B82F6",
-          "success": "#10B981",
-          "warning": "#F59E0B",
-          "error": "#EF4444",
-        }
-      }
-    ]
-  }
+        cryptovista: {
+          "primary": "#00ff9d",
+          "secondary": "#ff00ff",
+          "accent": "#00ffff",
+          "neutral": "#1a1a1a",
+          "base-100": "#0a0a0a",
+          "base-200": "#111111",
+          "base-300": "#1a1a1a",
+          "info": "#00ffff",
+          "success": "#00ff9d",
+          "warning": "#ff9d00",
+          "error": "#ff0055",
+          "--rounded-box": "0.5rem",
+          "--rounded-btn": "0.3rem",
+          "--rounded-badge": "0.3rem",
+          "--animation-btn": "0.25s",
+          "--animation-input": "0.2s",
+          "--btn-focus-scale": "0.98",
+          "--border-btn": "1px",
+          "--tab-border": "1px",
+          "--tab-radius": "0.3rem",
+        },
+      },
+    ],
+  },
 }
