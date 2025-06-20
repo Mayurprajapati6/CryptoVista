@@ -9,7 +9,7 @@ function About() {
 
         <p className="text-lg text-base-content mb-8 text-center">
           CryptoVista is a state-of-the-art web application developed by 
-          <span className="text-primary font-cyber"> Kuldeep Singh</span>. 
+          <span className="text-primary font-cyber"> Mayur Prajapati</span>. 
           The platform empowers users to monitor cryptocurrency prices, track market trends, and analyze historical data with ease. With a sleek design and robust functionality, CryptoVista delivers real-time updates and insightful visualizations to crypto enthusiasts, traders, and investors.
         </p>
 
@@ -56,10 +56,10 @@ function About() {
         </ul>
 
         <div className="flex flex-col items-center">
-          <h2 className="text-2xl font-cyber mb-4">Connect with the Developer</h2>
+          <h2 className="text-2xl font-cyber mb-4">Connect With Me</h2>
           <div className="flex gap-6">
             <a
-              href="https://github.com/singhkuldeep01"
+              href="https://github.com/Mayurprajapati6"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-primary hover:text-primary/80 text-lg font-cyber transition-colors duration-200"
@@ -68,7 +68,7 @@ function About() {
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/kuldeep-singh-rajput-095a282b7/"
+              href="https://www.linkedin.com/in/mayurprajapati068/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-primary hover:text-primary/80 text-lg font-cyber transition-colors duration-200"

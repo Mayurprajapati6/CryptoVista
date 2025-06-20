@@ -19,6 +19,10 @@ function Navbar({ setSearchTerm }) {
   const location = useLocation();
   const searchRef = useRef(null);
   const searchToggleButtonRef = useRef(null);
+  const notificationRef = useRef(null); // Ref for notification dropdown
+  const notificationToggleButtonRef = useRef(null); // Ref for notification icon
+  const menuRef = useRef(null); // Ref for menu dropdown
+  const menuToggleButtonRef = useRef(null); // Ref for menu toggle button
   
   // Extract page number from URL
   const currentPage = parseInt(new URLSearchParams(location.search).get('page')) || 1;
@@ -45,6 +49,8 @@ function Navbar({ setSearchTerm }) {
       setSearch("");
       setSearchTerm(""); // Clear search term when closing
     }
+    setIsMenuOpen(false); // Close menu if search is opened
+    setIsNotificationOpen(false); // Close notifications if search is opened
   };
 
   const handleSearchChange = (e) => {
@@ -62,12 +68,8 @@ function Navbar({ setSearchTerm }) {
 
   const handleNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
-  };
-
-  const handleNotificationClose = (e) => {
-    if (!e.target.closest('.notification-dropdown') && !e.target.closest('.notification-icon')) {
-      setIsNotificationOpen(false);
-    }
+    setIsSearchActive(false); // Close search if notifications are opened
+    setIsMenuOpen(false); // Close menu if notifications are opened
   };
 
   const handleMenuToggle = () => {
@@ -75,31 +77,44 @@ function Navbar({ setSearchTerm }) {
     if (isMenuOpen) {
       document.activeElement.blur();
     }
+    setIsSearchActive(false); // Close search if menu is opened
+    setIsNotificationOpen(false); // Close notifications if menu is opened
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchToggleButtonRef.current && searchToggleButtonRef.current.contains(event.target)) {
+      // Check if the click is inside any of the dropdowns or their toggle buttons
+      const isClickInsideSearch = searchRef.current && (searchRef.current.contains(event.target) || (searchToggleButtonRef.current && searchToggleButtonRef.current.contains(event.target)));
+      const isClickInsideNotification = notificationRef.current && (notificationRef.current.contains(event.target) || (notificationToggleButtonRef.current && notificationToggleButtonRef.current.contains(event.target)));
+      const isClickInsideMenu = menuRef.current && (menuRef.current.contains(event.target) || (menuToggleButtonRef.current && menuToggleButtonRef.current.contains(event.target)));
+
+      // If the click is inside any of these specific areas, do nothing
+      if (isClickInsideSearch || isClickInsideNotification || isClickInsideMenu) {
         return;
       }
-      
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+
+      // If we reach here, the click is truly outside all dropdowns/toggles, so close any open ones
+      if (isSearchActive) {
         setIsSearchActive(false);
+        setSearch("");
+        setSearchTerm("");
+      }
+
+      if (isNotificationOpen) {
+        setIsNotificationOpen(false);
+      }
+
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+        document.activeElement.blur();
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
-  }, [searchRef, searchToggleButtonRef]);
-
-  useEffect(() => {
-    document.addEventListener('click', handleNotificationClose);
-    return () => {
-      document.removeEventListener('click', handleNotificationClose);
-    };
-  }, []);
+  }, [isSearchActive, isNotificationOpen, isMenuOpen, searchRef, searchToggleButtonRef, notificationRef, notificationToggleButtonRef, menuRef, menuToggleButtonRef, setSearchTerm]);
 
   useEffect(() => {
     const generateNotifications = () => {
@@ -176,7 +191,7 @@ function Navbar({ setSearchTerm }) {
       <div className="container mx-auto px-4 flex items-center justify-between h-full">
         <div className="navbar-start">
           <div className={`dropdown ${isMenuOpen ? 'dropdown-open' : ''}`}>
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-primary hover:bg-primary/10" onClick={handleMenuToggle}>
+            <div ref={menuToggleButtonRef} tabIndex={0} role="button" className="btn btn-ghost btn-circle text-primary hover:bg-primary/10" onClick={handleMenuToggle}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -193,6 +208,7 @@ function Navbar({ setSearchTerm }) {
               </svg>
             </div>
             <ul
+              ref={menuRef} // Attach ref to the menu dropdown
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[51] mt-3 w-52 p-2 shadow-lg border border-primary/20"
             >
@@ -269,6 +285,7 @@ function Navbar({ setSearchTerm }) {
           </button>
           <div className="relative">
             <button
+              ref={notificationToggleButtonRef} // Attach ref to the notification icon
               onClick={handleNotificationClick}
               className="notification-icon p-2 text-base-content/70 hover:text-primary transition-colors relative"
             >
@@ -279,7 +296,7 @@ function Navbar({ setSearchTerm }) {
             </button>
 
             {isNotificationOpen && (
-              <div className="notification-dropdown absolute right-0 mt-2 w-96 bg-base-100 rounded-lg shadow-xl border border-base-300">
+              <div ref={notificationRef} className="notification-dropdown absolute right-0 mt-2 w-96 bg-base-100 rounded-lg shadow-xl border border-base-300">
                 <div className="p-4 border-b border-base-300">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-semibold text-base-content">Top Movers</h3>
@@ -374,6 +391,7 @@ function Navbar({ setSearchTerm }) {
               </div>
             )}
           </div>
+          
         </div>
       </div>
     </div>
