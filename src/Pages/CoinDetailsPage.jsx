@@ -1,6 +1,6 @@
 import React from "react";
-import CoinDetails from "../Components/CoinDetails/CoinDetails";
-import CoinChart from "../Components/CoinChart/CoinChart";
+import CoinDetails from "../components/CoinDetails/CoinDetails";
+import CoinChart from "../components/CoinChart/CoinChart";
 
 function CoinDetailsPage() {
   return (
